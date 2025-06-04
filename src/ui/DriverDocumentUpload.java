@@ -14,7 +14,11 @@ public class DriverDocumentUpload extends JFrame {
     private JTextField idCardField, vehicleRegField;
     private JButton uploadIdCardButton, uploadVehicleRegButton, createTripButton;
     private String idCardPath, vehicleRegPath;
+<<<<<<< HEAD
     private int userId;
+=======
+    private int userId; // To be set dynamically, e.g., from LoginForm.UserInfo
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/carpool";
     private static final String DB_USER = "root";
@@ -27,19 +31,35 @@ public class DriverDocumentUpload extends JFrame {
         setLayout(new GridLayout(4, 2, 10, 10));
         setSize(400, 200);
 
+<<<<<<< HEAD
+=======
+        // ID Card Upload
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
         idCardField = new JTextField(20);
         idCardField.setEditable(false);
         uploadIdCardButton = new JButton("Upload ID Card");
         uploadIdCardButton.addActionListener(new UploadListener("ID Card"));
 
+<<<<<<< HEAD
+=======
+        // Vehicle Registration Upload
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
         vehicleRegField = new JTextField(20);
         vehicleRegField.setEditable(false);
         uploadVehicleRegButton = new JButton("Upload Vehicle Registration");
         uploadVehicleRegButton.addActionListener(new UploadListener("Vehicle Registration"));
 
+<<<<<<< HEAD
         createTripButton = new JButton("Create Trip");
         createTripButton.addActionListener(e -> openCreateTripDialog());
 
+=======
+        // Create Trip Button
+        createTripButton = new JButton("Create Trip");
+        createTripButton.addActionListener(e -> openCreateTripDialog());
+
+        // Add components to frame
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
         add(new JLabel("ID Card:"));
         add(idCardField);
         add(uploadIdCardButton);
@@ -100,6 +120,10 @@ public class DriverDocumentUpload extends JFrame {
         }
         JOptionPane.showMessageDialog(this, "Proceeding to trip creation...", "Success",
                 JOptionPane.INFORMATION_MESSAGE);
+<<<<<<< HEAD
+=======
+        // Add your trip creation logic here or open DriverDashboard's create trip dialog
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
     }
 
     private boolean areDocumentsUploaded() {
@@ -122,6 +146,10 @@ public class DriverDocumentUpload extends JFrame {
     }
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         SwingUtilities.invokeLater(() -> new DriverDocumentUpload(1).setVisible(true));
+=======
+        SwingUtilities.invokeLater(() -> new DriverDocumentUpload(1).setVisible(true)); // Example userId=1
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
     }
 }

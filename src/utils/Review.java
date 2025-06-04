@@ -6,6 +6,7 @@ public class Review {
     private int passengerId;
     private int rating;
     private String comment;
+<<<<<<< HEAD
     private String passengerName;
 
     public int getId() { return id; }
@@ -25,4 +26,17 @@ public class Review {
 
     public String getPassengerName() { return passengerName; }
     public void setPassengerName(String passengerName) { this.passengerName = passengerName; }
+=======
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public int getDriverId() { return driverId; }
+    public void setDriverId(int driverId) { this.driverId = driverId; }
+    public int getPassengerId() { return passengerId; }
+    public void setPassengerId(int passengerId) { this.passengerId = passengerId; }
+    public int getRating() { return rating; }
+    public void setRating(int rating) { this.rating = rating; }
+    public String getComment() { return comment; }
+    public void setComment(String comment) { this.comment = comment; }
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
 }

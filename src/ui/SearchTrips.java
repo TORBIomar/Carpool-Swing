@@ -1,7 +1,14 @@
 package ui;
 
+<<<<<<< HEAD
 import utils.*;
 
+=======
+import utils.Trip;
+import utils.TripManager;
+import utils.ReservationDAO;
+import utils.AuthUtils;
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
 import java.util.List;
 
 import javax.swing.*;
@@ -22,6 +29,7 @@ public class SearchTrips extends JDialog {
     public SearchTrips(JFrame parent) {
         super(parent, "Search Trips", true);
         this.parent = parent;
+<<<<<<< HEAD
 
         UserInfo currentUser = AuthUtils.getInstance().getCurrentUser();
         if (currentUser == null) {
@@ -39,6 +47,10 @@ public class SearchTrips extends JDialog {
 
         initComponents();
         setSize(800, 600); // Set fixed width and height
+=======
+        initComponents();
+        pack();
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
         setLocationRelativeTo(parent);
     }
 
@@ -104,6 +116,7 @@ public class SearchTrips extends JDialog {
 
             int passengerId = AuthUtils.getInstance().getCurrentUser().getId();
 
+<<<<<<< HEAD
             // Check if the passenger is the driver of the trip
             String driverSql = "SELECT driver_id FROM trips WHERE id = ?";
             try (PreparedStatement driverStmt = conn.prepareStatement(driverSql)) {
@@ -133,6 +146,20 @@ public class SearchTrips extends JDialog {
                         return;
                     }
                 }
+=======
+            // Check if the passenger already has a reservation for this trip
+            String checkSql = "SELECT COUNT(*), seats_reserved FROM reservations WHERE trip_id = ? AND passenger_id = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setInt(1, tripId);
+            checkStmt.setInt(2, passengerId);
+            ResultSet rsCheck = checkStmt.executeQuery();
+            rsCheck.next();
+            int existingCount = rsCheck.getInt(1);
+            if (existingCount > 0) {
+                JOptionPane.showMessageDialog(this, "You have already booked this trip! Check 'My Reservations' to edit or delete.",
+                        "Already Booked", JOptionPane.WARNING_MESSAGE);
+                return;
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
             }
 
             String seatsStr = JOptionPane.showInputDialog(this,
@@ -156,6 +183,7 @@ public class SearchTrips extends JDialog {
 
             // Check available seats
             String tripSql = "SELECT seats_available FROM trips WHERE id = ?";
+<<<<<<< HEAD
             try (PreparedStatement tripStmt = conn.prepareStatement(tripSql)) {
                 tripStmt.setInt(1, tripId);
                 try (ResultSet rsTrip = tripStmt.executeQuery()) {
@@ -168,10 +196,23 @@ public class SearchTrips extends JDialog {
                         return;
                     }
                 }
+=======
+            PreparedStatement tripStmt = conn.prepareStatement(tripSql);
+            tripStmt.setInt(1, tripId);
+            ResultSet rsTrip = tripStmt.executeQuery();
+            rsTrip.next();
+            int available = rsTrip.getInt("seats_available");
+            if (seatsToBook > available) {
+                JOptionPane.showMessageDialog(this,
+                        "Only " + available + " seats are available!",
+                        "Not Enough Seats", JOptionPane.WARNING_MESSAGE);
+                return;
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
             }
 
             // Create reservation
             new ReservationDAO().createReservation(passengerId, tripId, seatsToBook);
+<<<<<<< HEAD
 
             // Update available seats
             String updateSql = "UPDATE trips SET seats_available = seats_available - ? WHERE id = ?";
@@ -180,6 +221,15 @@ public class SearchTrips extends JDialog {
                 updateStmt.setInt(2, tripId);
                 updateStmt.executeUpdate();
             }
+=======
+            
+            // Update available seats
+            String updateSql = "UPDATE trips SET seats_available = seats_available - ? WHERE id = ?";
+            PreparedStatement updateStmt = conn.prepareStatement(updateSql);
+            updateStmt.setInt(1, seatsToBook);
+            updateStmt.setInt(2, tripId);
+            updateStmt.executeUpdate();
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
 
             JOptionPane.showMessageDialog(this, "Trip reserved successfully!",
                     "Success", JOptionPane.INFORMATION_MESSAGE);

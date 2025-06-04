@@ -1,6 +1,13 @@
 package ui;
 
+<<<<<<< HEAD
 import utils.*;
+=======
+import utils.AuthUtils;
+import utils.Trip;
+import utils.TripManager;
+import utils.User;
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +21,11 @@ public class ManageTrips extends JDialog {
     private JTextField departureField, destinationField;
     private JSpinner dateTimeSpinner, seatsSpinner, priceSpinner;
     private JButton saveButton, cancelButton;
+<<<<<<< HEAD
     private final UserInfo currentUser;
+=======
+    private final User currentUser;
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
     private final DriverDashboard parent;
     private Trip trip;
 
@@ -29,6 +40,7 @@ public class ManageTrips extends JDialog {
             return;
         }
 
+<<<<<<< HEAD
         // Role check: Only DRIVER or BOTH can manage trips
         if (!"DRIVER".equals(currentUser.getRole()) && !"BOTH".equals(currentUser.getRole())) {
             JOptionPane.showMessageDialog(this, "You are not authorized to manage trips", "Error", JOptionPane.ERROR_MESSAGE);
@@ -36,6 +48,8 @@ public class ManageTrips extends JDialog {
             return;
         }
 
+=======
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
         if (tripId != null) {
             trip = TripManager.getInstance().getTripById(tripId);
             if (trip == null) {
@@ -43,12 +57,15 @@ public class ManageTrips extends JDialog {
                 dispose();
                 return;
             }
+<<<<<<< HEAD
             // Ensure the trip belongs to the current user
             if (trip.getDriverId() != currentUser.getId()) {
                 JOptionPane.showMessageDialog(this, "You are not authorized to edit this trip", "Error", JOptionPane.ERROR_MESSAGE);
                 dispose();
                 return;
             }
+=======
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
         }
 
         initComponents();
@@ -97,12 +114,22 @@ public class ManageTrips extends JDialog {
         departureField.setText(trip.getDeparture());
         destinationField.setText(trip.getDestination());
 
+<<<<<<< HEAD
         java.sql.Date sqlDate = trip.getDate();
         java.sql.Time sqlTime = trip.getTime();
         LocalDateTime localDateTime = sqlDate.toLocalDate().atTime(
                 sqlTime.toLocalTime().getHour(),
                 sqlTime.toLocalTime().getMinute(),
                 sqlTime.toLocalTime().getSecond()
+=======
+        // Convert java.sql.Date and java.sql.Time to java.util.Date for JSpinner
+        java.sql.Date sqlDate = trip.getDate();
+        java.sql.Time sqlTime = trip.getTime();
+        LocalDateTime localDateTime = sqlDate.toLocalDate().atTime(
+            sqlTime.toLocalTime().getHour(),
+            sqlTime.toLocalTime().getMinute(),
+            sqlTime.toLocalTime().getSecond()
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
         );
         java.util.Date utilDate = java.util.Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         dateTimeSpinner.setValue(utilDate);
@@ -129,6 +156,7 @@ public class ManageTrips extends JDialog {
                 return;
             }
 
+<<<<<<< HEAD
             LocalDateTime localDateTime = dt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             LocalDateTime now = LocalDateTime.now();
             if (localDateTime.isBefore(now)) {
@@ -146,6 +174,10 @@ public class ManageTrips extends JDialog {
                 return;
             }
 
+=======
+            // Convert java.util.Date to java.sql.Date and java.sql.Time
+            LocalDateTime localDateTime = dt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDateTime.toLocalDate());
             java.sql.Time sqlTime = java.sql.Time.valueOf(localDateTime.toLocalTime());
 
@@ -163,7 +195,11 @@ public class ManageTrips extends JDialog {
                 mgr.updateTrip(trip);
                 JOptionPane.showMessageDialog(this, "Trip updated!");
             }
+<<<<<<< HEAD
             parent.loadUserTrips();
+=======
+            parent.loadUserTrips(); // Updated to match DriverDashboard method
+>>>>>>> f3b1b1c592740ac86847beaaa37f7a9a949dd01a
             dispose();
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this, "Invalid date or time format: " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
